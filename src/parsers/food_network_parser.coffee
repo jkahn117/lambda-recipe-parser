@@ -10,6 +10,11 @@ class FoodNetworkParser extends BaseParser
     @recipe.cookTime = @doc('dt:contains("Cook:")+dd').first().text()
     @recipe.servings = @doc('dt:contains("Yield:")+dd').first().text()
 
+    # FN specific times
+    @recipe.inactiveTime = @doc('dt:contains("Inactive:")+dd').first().text()
+    @recipe.totalTime    = @doc('dt:contains("Total Time:")+dd').first().text()
+    @recipe.level        = @doc('dt:contains("Level:")+dd').first().text()
+
     return
 
   _parseIngredients: () ->

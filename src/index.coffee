@@ -3,6 +3,7 @@
 #
 
 'use strict'
+URL = require('url')
 
 #
 # event.json:
@@ -37,9 +38,13 @@ exports.handler = (event, context, callback) ->
     if !result.error
       recipe = new Recipe(result.data)
 
-      fnParser = new FoodNetworkParser(result.data.html, recipe)
-      recipe = fnParser.parse()
-
+      sourceHost = URL.parse(event.url).hostname
+      switch sourceHost
+        when 'www.foodnetwork.com', 'foodnetwork.com'
+          new FoodNetworkParser(result.data.html, recipe).parse()
+        else
+          respondWithError context, 'Unsupported site'
+          return
 
       respondWithSuccess context, recipe
     else
