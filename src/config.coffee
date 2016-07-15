@@ -3,4 +3,4 @@
 #
 
 class Config
-  @INSTAPARSER_API_KEY = 'INSERT_ME'
+  @INSTAPARSER_API_KEY = 'INSERT ME'
